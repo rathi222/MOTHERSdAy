@@ -6,7 +6,9 @@
   <title>Happy Mother's Day</title>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html, body {
       margin: 0;
@@ -14,175 +16,300 @@
       min-height: 100vh;
       overflow-x: hidden;
       overflow-y: auto;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #dbeafe, #f8fafc, #e0f2fe);
+      font-family: "Segoe UI", Arial, sans-serif;
       text-align: center;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(56, 189, 248, 0.30), transparent 28%),
+        radial-gradient(circle at 85% 15%, rgba(251, 191, 36, 0.22), transparent 28%),
+        radial-gradient(circle at 50% 95%, rgba(37, 99, 235, 0.28), transparent 35%),
+        linear-gradient(135deg, #020617, #0f172a, #172554);
+      color: #f8fafc;
     }
 
     body {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px 0 40px;
+      padding: 24px 0 42px;
       min-height: 100vh;
     }
 
-    img { max-width: 100%; }
+    .bg-orb {
+      position: fixed;
+      border-radius: 999px;
+      filter: blur(2px);
+      opacity: 0.45;
+      z-index: 0;
+      pointer-events: none;
+      animation: orbFloat 7s ease-in-out infinite;
+    }
+
+    .orb1 {
+      width: 170px;
+      height: 170px;
+      background: rgba(56, 189, 248, 0.35);
+      top: 8%;
+      left: -55px;
+    }
+
+    .orb2 {
+      width: 150px;
+      height: 150px;
+      background: rgba(251, 191, 36, 0.25);
+      bottom: 7%;
+      right: -45px;
+      animation-delay: 1.4s;
+    }
+
+    .orb3 {
+      width: 110px;
+      height: 110px;
+      background: rgba(255, 255, 255, 0.18);
+      top: 58%;
+      left: 8%;
+      animation-delay: 2.4s;
+    }
+
+    img {
+      max-width: 100%;
+    }
 
     .card {
       width: calc(100% - 32px);
       max-width: 430px;
-      padding: 24px 18px;
-      background: rgba(255, 255, 255, 0.72);
-      border-radius: 24px;
-      border: 1px solid rgba(37, 99, 235, 0.18);
-      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.18);
-      backdrop-filter: blur(8px);
+      padding: 26px 20px;
+      border-radius: 30px;
+      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.38);
+      backdrop-filter: blur(14px);
       z-index: 2;
-      animation: fadeIn 1.2s ease;
+      animation: cardIn 0.9s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .hidden { display: none; }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 30px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(56,189,248,0.75), rgba(251,191,36,0.75), rgba(255,255,255,0.22));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      color: #bae6fd;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      margin-bottom: 10px;
+    }
 
     h1 {
-      font-size: 31px;
-      color: #1e3a8a;
-      margin-bottom: 10px;
-      animation: glow 2s infinite alternate;
+      margin: 10px 0;
+      font-size: 30px;
+      line-height: 1.12;
+      color: #f8fafc;
+      letter-spacing: -0.5px;
     }
 
     h2 {
-      color: #1d4ed8;
+      margin: 10px 0;
+      color: #fde68a;
       font-size: 21px;
     }
 
     p {
       font-size: 17px;
-      color: #1e293b;
-      line-height: 1.5;
+      color: #dbeafe;
+      line-height: 1.55;
+      margin: 12px 0;
+    }
+
+    .subtle {
+      color: #cbd5e1;
+      font-size: 15px;
     }
 
     button {
-      margin-top: 14px;
+      margin-top: 16px;
       padding: 14px 24px;
-      border: none;
-      border-radius: 30px;
-      background: #2563eb;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
       color: white;
       font-size: 16px;
+      font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.32);
+      box-shadow: 0 12px 25px rgba(37, 99, 235, 0.34);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    button:hover {
-      background: #1d4ed8;
+    button:active {
+      transform: scale(0.97);
     }
 
-    .option-btn {
-      display: block;
-      width: 85%;
-      margin: 12px auto;
+    .gold-btn {
+      background: linear-gradient(135deg, #fbbf24, #f97316);
+      box-shadow: 0 12px 25px rgba(251, 191, 36, 0.28);
     }
 
-    .small-note {
-      font-size: 14px;
-      color: #334155;
-      margin-top: 10px;
-      font-style: italic;
+    .music-btn {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      padding: 9px 12px;
+      font-size: 12px;
+      display: none;
+      margin: 0;
+      background: rgba(15, 23, 42, 0.82);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.25);
     }
 
-    .made-love {
-      margin-top: 18px;
-      font-size: 14px;
-      color: #1e40af;
-      font-weight: 600;
-      opacity: 0.9;
+    .progress {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin: 0 auto 18px;
     }
 
-    .shy-img {
-      width: 105px;
-      height: 105px;
-      object-fit: cover;
+    .dot {
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      border: 4px solid white;
-      box-shadow: 0 8px 18px rgba(15,23,42,0.22);
-      animation: shyBounce 2s infinite;
-      margin-top: 8px;
+      background: rgba(148, 163, 184, 0.38);
     }
 
-    .flower {
-      font-size: 46px;
-      animation: bounce 2s infinite;
+    .dot.active {
+      background: #38bdf8;
+      box-shadow: 0 0 12px rgba(56,189,248,0.9);
+    }
+
+    .icon-big {
+      font-size: 66px;
+      margin: 8px 0;
+      animation: gentleFloat 2.4s ease-in-out infinite;
+      filter: drop-shadow(0 10px 16px rgba(0,0,0,0.25));
     }
 
     .gift {
-      font-size: 95px;
+      font-size: 92px;
       cursor: pointer;
       animation: shake 1.2s infinite;
-      margin: 20px 0;
+      margin: 16px 0;
+      filter: drop-shadow(0 13px 17px rgba(0,0,0,0.28));
+    }
+
+    .photo-wrap {
+      width: 280px;
+      height: 280px;
+      margin: 0 auto 14px;
+      padding: 8px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #38bdf8, #fbbf24, #ffffff);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.35);
+      animation: popOut 1s ease;
     }
 
     .photo {
-      width: 260px;
-      height: 260px;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      border-radius: 22px;
-      border: 6px solid white;
-      box-shadow: 0 12px 30px rgba(15,23,42,0.3);
-      animation: popOut 1.2s ease;
+      border-radius: 23px;
+      border: 4px solid rgba(255,255,255,0.9);
     }
 
     .memory-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      margin: 18px 0;
+      margin: 18px 0 8px;
     }
 
     .memory-grid img {
       width: 100%;
-      height: 135px;
+      height: 138px;
       object-fit: cover;
-      border-radius: 16px;
-      border: 4px solid white;
-      box-shadow: 0 8px 20px rgba(15,23,42,0.24);
+      border-radius: 20px;
+      border: 3px solid rgba(255,255,255,0.9);
+      box-shadow: 0 9px 24px rgba(0,0,0,0.28);
       animation: floatPhoto 3s ease-in-out infinite;
     }
 
-    .memory-grid img:nth-child(2) { animation-delay: 0.4s; }
-    .memory-grid img:nth-child(3) { animation-delay: 0.8s; }
-    .memory-grid img:nth-child(4) { animation-delay: 1.2s; }
-
-    .envelope {
-      font-size: 95px;
-      cursor: pointer;
-      animation: bounce 1.8s infinite;
-      margin: 20px 0;
-    }
+    .memory-grid img:nth-child(2) { animation-delay: 0.35s; }
+    .memory-grid img:nth-child(3) { animation-delay: 0.7s; }
+    .memory-grid img:nth-child(4) { animation-delay: 1.05s; }
 
     .letter {
-      background: #f8fafc;
+      background: rgba(248, 250, 252, 0.93);
+      color: #0f172a;
       padding: 20px;
-      border-radius: 18px;
-      border: 1px solid rgba(37, 99, 235, 0.16);
-      box-shadow: inset 0 0 15px rgba(37,99,235,0.08);
-      animation: openLetter 1.2s ease;
+      border-radius: 22px;
+      border-left: 6px solid #fbbf24;
+      box-shadow: inset 0 0 16px rgba(37,99,235,0.08);
+      animation: openLetter 1s ease;
+    }
+
+    .letter h1 {
+      color: #1e3a8a;
+      font-size: 28px;
+    }
+
+    .letter p {
+      color: #334155;
+    }
+
+    .letter h2 {
+      color: #0f766e;
+    }
+
+    .made-love {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #fde68a;
+      font-weight: 700;
+      opacity: 0.95;
     }
 
     .final-text {
-      font-size: 38px;
-      color: #1e3a8a;
-      animation: none;
+      font-size: 34px;
+      color: #f8fafc;
       text-shadow: none;
+      animation: none;
     }
 
-    .heart, .confetti, .firework, .heart-rain, .bg-drop {
+    .bg-drop, .heart, .confetti, .firework, .heart-rain {
       position: fixed;
       z-index: 1;
       pointer-events: none;
     }
 
-    .heart { animation: floatUp 6s linear infinite; }
+    .bg-drop {
+      top: -40px;
+      font-size: 18px;
+      opacity: 0.65;
+      animation: softDropFall 7s linear forwards;
+    }
+
+    .heart {
+      animation: floatUp 6s linear infinite;
+    }
 
     .confetti {
       top: -20px;
@@ -201,62 +328,49 @@
       animation: heartRainFall 5s linear forwards;
     }
 
-    .bg-drop {
-      top: -40px;
-      font-size: 18px;
-      opacity: 0.72;
-      animation: softDropFall 7s linear forwards;
+    @media (max-width: 360px) {
+      h1 { font-size: 27px; }
+      p { font-size: 16px; }
+      .photo-wrap {
+        width: 245px;
+        height: 245px;
+      }
+      .memory-grid img {
+        height: 118px;
+      }
     }
 
-    .music-btn {
-      position: fixed;
-      top: 12px;
-      right: 12px;
-      z-index: 9999;
-      padding: 9px 12px;
-      font-size: 12px;
-      display: none;
-      margin: 0;
-      background: #1e40af;
-      box-shadow: 0 8px 18px rgba(30, 64, 175, 0.25);
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(18px) scale(0.94); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.85); }
-      to { opacity: 1; transform: scale(1); }
+    @keyframes orbFloat {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-18px) translateX(12px); }
     }
 
-    @keyframes glow {
-      from { text-shadow: 0 0 8px rgba(147,197,253,0.45); }
-      to { text-shadow: 0 0 18px rgba(37,99,235,0.45); }
-    }
-
-    @keyframes bounce {
+    @keyframes gentleFloat {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-12px); }
     }
 
-    @keyframes shyBounce {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-8px) scale(1.05); }
-    }
-
     @keyframes shake {
       0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(6deg); }
-      50% { transform: rotate(-6deg); }
-      75% { transform: rotate(4deg); }
+      25% { transform: rotate(5deg); }
+      50% { transform: rotate(-5deg); }
+      75% { transform: rotate(3deg); }
     }
 
     @keyframes popOut {
-      0% { transform: scale(0.2) rotate(-10deg); opacity: 0; }
-      70% { transform: scale(1.1) rotate(3deg); opacity: 1; }
-      100% { transform: scale(1) rotate(0deg); }
+      0% { transform: scale(0.2) rotate(-8deg); opacity: 0; }
+      70% { transform: scale(1.06) rotate(2deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0); }
     }
 
     @keyframes floatPhoto {
       0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-8px) rotate(1.5deg); }
+      50% { transform: translateY(-7px) rotate(1deg); }
     }
 
     @keyframes openLetter {
@@ -264,10 +378,16 @@
       to { transform: scaleY(1); opacity: 1; }
     }
 
+    @keyframes softDropFall {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+      15% { opacity: 0.75; }
+      100% { transform: translateY(110vh) rotate(260deg); opacity: 0; }
+    }
+
     @keyframes floatUp {
       0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
       20% { opacity: 1; }
-      100% { transform: translateY(-10vh) scale(1.3); opacity: 0; }
+      100% { transform: translateY(-10vh) scale(1.25); opacity: 0; }
     }
 
     @keyframes confettiFall {
@@ -285,16 +405,14 @@
       15% { opacity: 1; }
       100% { transform: translateY(110vh) rotate(260deg); opacity: 0; }
     }
-
-    @keyframes softDropFall {
-      0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
-      15% { opacity: 0.8; }
-      100% { transform: translateY(110vh) rotate(260deg); opacity: 0; }
-    }
   </style>
 </head>
 
 <body>
+
+  <div class="bg-orb orb1"></div>
+  <div class="bg-orb orb2"></div>
+  <div class="bg-orb orb3"></div>
 
   <audio id="bgMusic" loop>
     <source src="music1.mp3" type="audio/mpeg">
@@ -303,31 +421,48 @@
   <button class="music-btn" id="musicBtn" onclick="toggleMusic()">Pause Music ⏸️</button>
 
   <div class="card" id="page1">
-    <div class="flower">🌼</div>
+    <div class="progress">
+      <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    </div>
+    <div class="badge">A small surprise</div>
+    <div class="icon-big">🌙</div>
     <h1>For My Dear Mummyy</h1>
-    <p>I made something special just for you.</p>
-    <button onclick="startExperience()">Tap to Open ❤️</button>
+    <p>I made this simple surprise just for you.</p>
+    <button onclick="startExperience()">Start the Surprise ❤️</button>
     <div class="made-love">Made with love by your son ❤️</div>
   </div>
 
   <div class="card hidden" id="page2">
-    <div class="flower">🌻</div>
+    <div class="progress">
+      <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+    </div>
+    <div class="badge">Mother's Day</div>
+    <div class="icon-big">🌻</div>
     <h1>Happy Mother's Day, Mee ❤️</h1>
     <p>
       Thank you for your love, care, and everything you have done for me.
       You are my biggest blessing.
     </p>
-    <button onclick="showPage('page3')">Click Here For The Next Surprise 🎁</button>
+    <button onclick="showPage('page3')">Open the Gift 🎁</button>
   </div>
 
   <div class="card hidden" id="page3">
+    <div class="progress">
+      <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+    </div>
+    <div class="badge">Tap the gift</div>
     <h1>A Small Gift For You</h1>
     <p>Click the gift box, Mee 💝</p>
     <div class="gift" onclick="showPage('page4')">🎁</div>
   </div>
 
   <div class="card hidden" id="page4">
-    <img src="mom_photo.jpg" class="photo" alt="Mee and me">
+    <div class="progress">
+      <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
+    </div>
+    <div class="photo-wrap">
+      <img src="mom_photo.jpg" class="photo" alt="Mee and me">
+    </div>
     <h1>I Love You So Much, Mee ❤️</h1>
     <p>
       You are one of the biggest reasons I am who I am today.
@@ -337,6 +472,10 @@
   </div>
 
   <div class="card hidden" id="memoryPage">
+    <div class="progress">
+      <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
+    </div>
+    <div class="badge">Our memories</div>
     <h1>Beautiful Memories 📸</h1>
 
     <div class="memory-grid">
@@ -352,9 +491,13 @@
   </div>
 
   <div class="card hidden" id="pageLetterStart">
+    <div class="progress">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span>
+    </div>
+    <div class="badge">One letter</div>
     <h1>Here's a Letter For You</h1>
     <p>Click the envelope, Mee ✉️</p>
-    <div class="envelope" onclick="showPage('pageLetter')">💌</div>
+    <div class="gift" onclick="showPage('pageLetter')">💌</div>
   </div>
 
   <div class="card hidden" id="pageLetter">
@@ -376,11 +519,12 @@
       <h2>I love you today, tomorrow, and forever 💕</h2>
     </div>
 
-    <button onclick="finalCelebration()">Final Surprise For You! 🎆</button>
+    <button class="gold-btn" onclick="finalCelebration()">Final Surprise 🎆</button>
   </div>
 
   <div class="card hidden" id="pageFinal">
-    <div class="flower">🌟</div>
+    <div class="badge">Forever grateful</div>
+    <div class="icon-big">🌟</div>
 
     <h1 class="final-text">My love for you is endless, Mee ❤️❤️</h1>
 
@@ -457,11 +601,11 @@
     function finalCelebration() {
       showPage("pageFinal");
 
-      for (let i = 0; i < 8; i++) createConfetti();
-      for (let i = 0; i < 5; i++) createHeart();
+      for (let i = 0; i < 10; i++) createConfetti();
+      for (let i = 0; i < 6; i++) createHeart();
 
       for (let i = 0; i < 3; i++) {
-        setTimeout(createFirework, i * 700);
+        setTimeout(createFirework, i * 650);
       }
 
       if (!finalRainInterval) {
@@ -469,7 +613,7 @@
           for (let i = 0; i < 2; i++) {
             createHeartRain();
           }
-        }, 850);
+        }, 900);
       }
     }
 
@@ -477,7 +621,7 @@
       const drop = document.createElement("div");
       drop.className = "bg-drop";
 
-      const items = ["💙", "⭐", "✨", "🤍"];
+      const items = ["💙", "⭐", "✨", "🤍", "❤️"];
       drop.innerHTML = items[Math.floor(Math.random() * items.length)];
 
       drop.style.left = Math.random() * 95 + "vw";
